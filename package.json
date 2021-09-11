@@ -1,0 +1,31 @@
+{
+  "name": "sign-in-sign-up-page",
+  "version": "1.0.0",
+  "description": "sign-up sign-in jwt",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pairsupit/sign-in-sign-up-page.git"
+  },
+  "author": "supitsara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pairsupit/sign-in-sign-up-page/issues"
+  },
+  "homepage": "https://github.com/pairsupit/sign-in-sign-up-page#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "firebase": "^9.0.1",
+    "google-auth-library": "^7.9.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

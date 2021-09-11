@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+}
+/* Background styles */
+body {
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1124&q=100');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    padding: 1rem;
+    max-width: fit-content;
+    margin: 5rem auto;
+}
+
+/* Glassmorphism card effect */
+.glassmorphism {
+    backdrop-filter: blur(3px) saturate(200%);
+    -webkit-backdrop-filter: blur(3px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3); 
+    max-width: fit-content;
+}
+.glassmorphism > form , .glassmorphism > div{
+    margin: 1rem;
+    display: block;
+    min-width: 370px;
+}
+form > div, form > h2 , form > input {
+    margin: 1rem 0rem;
+}
+h1[name="sign-in"], h1[name="topic"] {
+    text-align: center;
+}
+h2 {
+    font-size: 1.2rem;
+    padding-bottom: 0.7rem;
+}
+input[type="submit"], input[type="password"], input[type="text"]{
+    width: 100%;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+input[type="password"], input[type="text"]{
+    background-color: rgba(226, 238, 255, 0.3); 
+}
+div[name="hrefRegister"] {
+    text-align: center;
+}
+button[name="SocialButt"], button[name="LogOutButton"]{
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.7rem;
+    font-size: 1rem;
+}
+input[type="submit"], button[name="SocialButt"], button[name="LogOutButton"]{
+    background-color: rgba(216, 216, 216, 0.39);
+    border: none;
+}
+input[type="submit"]:hover , button[name="SocialButt"]:hover, button[name="LogOutButton"]:hover {
+    background-color: rgba(242, 248, 255, 0.651); 
+}
+div[name="textSocialOthersWays"]{
+    text-align: center;
+}

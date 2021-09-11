@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google API fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="glassmorphism">
+            <form>
+                <h1 name="sign-in">Sign up</h1>
+
+                <div>
+                    <h2 name="ss">e-mail</h2>
+                    <input type="text" name="e-mail" id="email">
+                    <div id="validEmail"></div>
+                </div>
+
+                <div>
+                    <h2>password</h2>
+                    <input type="password" name="password" id="password">
+                    <div id="validPassword"></div>
+                </div>
+
+                <div>
+                    <h2>Confirm password</h2>
+                    <input type="password" name="password" id="confirmPassword">
+                    <div id="validConfirmPassword"></div>
+                </div>
+
+                <input type="submit" value="Register">
+
+                <div name="hrefRegister">
+                    <a href="/index.html">Already have an account?</a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // TODO: Replace the following with your app's Firebase project configuration
+        // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsVtwu9evW8dxBvSjyRtURibmsxPjv0kE",
+            authDomain: "signup-signin-325318.firebaseapp.com",
+            projectId: "signup-signin-325318",
+            storageBucket: "signup-signin-325318.appspot.com",
+            messagingSenderId: "155608691580",
+            appId: "1:155608691580:web:21505e489d1bed81ceaaf9",
+            measurementId: "G-45RN3WVBL4"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+        let form = document.getElementsByTagName("form")[0];
+        let emailStr = document.getElementById("email");
+        let passwordStr = document.getElementById("password");
+        let validEmailStr = document.getElementById("validEmail");
+        let validPasswordStr = document.getElementById("validPassword");
+        let googleLogInButton = document.getElementById("LogInWithGoogle");
+        let confirmPasswordStr = document.getElementById("confirmPassword");
+        let validConfirmPasswordStr = document.getElementById("validConfirmPassword");
+
+        emailStr.addEventListener('keyup', function () {
+            // console.log(`keydown is working`);
+            function validateEmail(email) {
+                const re = /\S+@\S+\.\S+/;
+                return re.test(String(email).toLowerCase());
+            }
+            if (validateEmail(emailStr.value) == true) {
+                validEmailStr.innerText = `email is valid`;
+                validEmailStr.style.color = `green`;
+            } else {
+                validEmailStr.innerText = `email is unvalid`;
+                validEmailStr.style.color = `red`;
+            }
+        });
+
+        passwordStr.addEventListener('keydown', function () {
+            // console.log(`keydown is working`);
+            if (passwordStr.value.length < 6) {
+                validPasswordStr.innerText = 'password must longer than 6 character';
+                validPasswordStr.style.color = 'red';
+            } else {
+                validPasswordStr.innerText = 'password is valid';
+                validPasswordStr.style.color = 'green';
+            }
+        });
+
+        confirmPasswordStr.addEventListener('keyup', function () {
+            let passwordIsEqual = (confirmPasswordStr.value == passwordStr.value);
+            if(passwordIsEqual){
+                validConfirmPasswordStr.innerText = `password and confirm password are equal`;
+                validConfirmPasswordStr.style.color = `green`;
+            }else{
+                validConfirmPasswordStr.innerText = `password is not equal`;
+                validConfirmPasswordStr.style.color = `red`;
+            }
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let email = emailStr.value;
+            let password = passwordStr.value;
+            let confirmpassword = confirmPasswordStr.value;
+
+            if(email != null && (password==confirmpassword)){
+                createdUser(email,password);
+                clearForm();
+            }else{
+                console.log(`Invalid input`);
+            }
+        });
+
+        function createdUser(email,password){
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in 
+                var user = userCredential.user;
+                console.log(`Created user Succesfully`);
+                alert(`Create User Succesfully`)
+                window.location.href = "http://localhost:5500";
+                VerifyEmail();
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+        }
+
+        function VerifyEmail(){
+            const user = firebase.auth().currentUser;
+            if (user !== null) {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    firebase.auth().currentUser.sendEmailVerification()
+                    .then(() => {
+                        console.log(`Email verification sent!`);
+                        const displayName = user.displayName;
+                        const email = user.email;
+                        const photoURL = user.photoURL;
+                        const emailVerified = user.emailVerified;
+                        console.log(`displayname:${displayName} 
+                        , email:${email} 
+                        , photoURL:${photoURL}
+                        , email-verify:${emailVerified}`);
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode);
+                        console.log(errorMessage);
+                    });
+                })
+            }
+        }
+
+        function clearForm(){
+            emailStr.value = '';
+            passwordStr.value = '';
+            confirmPasswordStr.value = '';
+        }
+        
+    </script>
+
+</body>
+
+</html>
