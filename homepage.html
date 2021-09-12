@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar.css">
     <!-- Google API fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +15,21 @@
 </head>
 
 <body>
+    <nav>
+        <div>
+            <a href="">Home</a>
+            <a href="">manage</a>
+            <div class="dropdown">
+                <a name="V" onclick="myFunction()"> V </a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a>Profile<span><img></span></a>
+                    <a>Logout</a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
     <div class="container">
         <div class="glassmorphism">
             <div>
@@ -27,11 +43,17 @@
             <div>
                 <button name="LogOutButton" id="LogOutButton">Logout</button>
             </div>
-            
+
 
         </div>
 
     </div>
+    <script>
+        function myFunction() {
+            console.log('click dropdown');
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+    </script>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -61,43 +83,28 @@
     </script>
     <script>
         let logOutButton = document.getElementById("LogOutButton");
-        logOutButton.addEventListener('click',function(){
+        logOutButton.addEventListener('click', function () {
             firebase.auth().signOut().then(() => {
-            // Sign-out successful.
+                // Sign-out successful.
                 console.log(`Sign-out successful`);
-                DeleteToken();
-                window.location.href = "http://localhost:5500";
+                window.location = "http://localhost:5500";
             }).catch((error) => {
-            // An error happened.
+                // An error happened.
                 console.log(`Error while signing out`, error);
             });
         })
     </script>
-    
+
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 let user = firebase.auth().currentUser;
-                if (user !== null) {
+                if (user) {
                     let statusEmailverified = document.getElementById("statusEmailverified");
                     statusEmailverified.children[0].innerText = user.emailVerified;
                 }
             }
         })
-    </script>
-
-    <script>
-        const token = localStorage.getItem('my-token');
-        // if (token==null) {
-        //     window.location.href = "http://localhost:5500"
-        // } else {
-        //     //stay still
-        // }
-
-        //logout
-        function DeleteToken(){
-            localStorage.removeItem('my-token');
-        }
     </script>
 
 </body>

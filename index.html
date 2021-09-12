@@ -134,7 +134,6 @@
                     console.log(user);
 
                     GoToHomePage();
-                    SetToken(user.refreshToken);
                 })
                 .catch((error) => {
                     var errorCode = error.code;
@@ -142,7 +141,7 @@
                     console.log(`:: This is error Message ::`);
                     console.log(errorCode);
                     console.log(errorMessage);
-                });
+                })
             
         });
 
@@ -151,7 +150,7 @@
             firebase.auth()
                 .signInWithPopup(provider)
                 .then((result) => {
-                    /** @type {firebase.auth.OAuthCredential} */
+                    /* @type {firebase.auth.OAuthCredential} */
                     var credential = result.credential;
 
                     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -203,14 +202,19 @@
         });
 
         function GoToHomePage(){
-            window.location = "http://localhost:5500/homepage.html";
-        }
-    </script>
-    
-    <script>
-        //Do if Loginsuccesfully
-        function SetToken(token){
-            localStorage.setItem('my-token', token);
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    let user = firebase.auth().currentUser;
+                    if(user){
+                        if (user.emailVerified) {
+                            window.location = "http://localhost:5500/homepage.html";
+                        }
+                        else {
+                            alert(`Please verify your email first`);
+                        }
+                    }
+                }
+            })
         }
     </script>
 </body>
