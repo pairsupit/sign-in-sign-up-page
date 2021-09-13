@@ -1,0 +1,9 @@
+.glassmorphism div {
+    text-align: center;
+}
+.glassmorphism div img, .glassmorphism div p {
+    margin-top: 1rem;
+}
+#imgProfile {
+    border-radius: 50%;
+}

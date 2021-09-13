@@ -17,7 +17,7 @@ body {
 .container {
     padding: 1rem;
     max-width: fit-content;
-    margin: 5rem auto;
+    margin: 5rem auto -4rem auto;
 }
 
 /* Glassmorphism card effect */
@@ -37,12 +37,13 @@ body {
 form > div, form > h2 , form > input {
     margin: 1rem 0rem;
 }
-h1[name="sign-in"], h1[name="topic"] {
+h1[name="sign-in"],h1[name="topic"] {
     text-align: center;
 }
 h2 {
     font-size: 1.2rem;
     padding-bottom: 0.7rem;
+    width: fit-content;
 }
 input[type="submit"], input[type="password"], input[type="text"]{
     width: 100%;
@@ -56,17 +57,17 @@ input[type="password"], input[type="text"]{
 div[name="hrefRegister"] {
     text-align: center;
 }
-button[name="SocialButt"], button[name="LogOutButton"]{
+button[name="SocialButt"]{
     width: 100%;
     padding: 0.7rem;
     margin-top: 0.7rem;
     font-size: 1rem;
 }
-input[type="submit"], button[name="SocialButt"], button[name="LogOutButton"]{
+input[type="submit"], button[name="SocialButt"]{
     background-color: rgba(216, 216, 216, 0.39);
     border: none;
 }
-input[type="submit"]:hover , button[name="SocialButt"]:hover, button[name="LogOutButton"]:hover {
+input[type="submit"]:hover , button[name="SocialButt"]:hover {
     background-color: rgba(242, 248, 255, 0.651); 
 }
 div[name="textSocialOthersWays"]{

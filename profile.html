@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="profile.css">
     <!-- Google API fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +23,7 @@
             <div class="dropdown">
                 <a name="V" onclick="myFunction()"> V </a>
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="profile.html">Profile<span><img></span></a>
+                    <a href="/profile.html">Profile<span><img></span></a>
                     <a id="LogOutButton">Logout</a>
                 </div>
             </div>
@@ -33,18 +34,10 @@
     <div class="container">
         <div class="glassmorphism">
             <div>
-                <h2>About this website</h2>
-                <p>
-                    this website is made of firbase Authentication for login process
-                    <br> - you can register and login via email and after regis you must verify your email befor login
-                    <br> - you can login via google account
-                    <br>- you can login via facebook account (in process of developing)
-                    at first i just developed for login - register - logout but now i add some management DB using firebase firestore (for sure it's NoSQL)
-                </p>
-            </div>
-            <div>
-                
-
+                <h1 name="topic">Profile</h1>
+                <img id="imgProfile">
+                <p>Name : <span id="nameProfile"></span></p>
+                <p>Email : <span id="emailProfile"></span></p>
             </div>
         </div>
     </div>
@@ -53,6 +46,7 @@
             document.getElementById("myDropdown").classList.toggle("show");
         }
     </script>
+
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -80,6 +74,7 @@
         // Initialize Firebase 
         firebase.initializeApp(firebaseConfig);
     </script>
+
     <script>
         let logOutButton = document.getElementById("LogOutButton");
         logOutButton.addEventListener('click', function () {
@@ -98,17 +93,17 @@
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 let user = firebase.auth().currentUser;
+                let imgProfile = document.getElementById("imgProfile")
+                let nameProfile = document.getElementById("nameProfile")
+                let emailProfile = document.getElementById("emailProfile")
                 if (user) {
-                    console.log(user);
-                    console.log(user.displayName);
-                    console.log(user.email);
-                    console.log(user.photoURL);
-                    console.log(user.emailVerified);
+                    imgProfile.setAttribute('src', user.photoURL);
+                    nameProfile.innerText = user.displayName;
+                    emailProfile.innerText = user.email;
                 }
             }
         })
     </script>
-
 </body>
 
 </html>

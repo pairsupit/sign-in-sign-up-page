@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="manage.css">
     <!-- Google API fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +24,7 @@
             <div class="dropdown">
                 <a name="V" onclick="myFunction()"> V </a>
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="profile.html">Profile<span><img></span></a>
+                    <a href="/profile.html">Profile<span><img></span></a>
                     <a id="LogOutButton">Logout</a>
                 </div>
             </div>
@@ -32,20 +34,46 @@
 
     <div class="container">
         <div class="glassmorphism">
-            <div>
-                <h2>About this website</h2>
-                <p>
-                    this website is made of firbase Authentication for login process
-                    <br> - you can register and login via email and after regis you must verify your email befor login
-                    <br> - you can login via google account
-                    <br>- you can login via facebook account (in process of developing)
-                    at first i just developed for login - register - logout but now i add some management DB using firebase firestore (for sure it's NoSQL)
-                </p>
-            </div>
-            <div>
-                
+            <form>
+                <h1 name="topic">Manage firestore</h1>
 
-            </div>
+                <div>
+                    <h2>Name : </h2> 
+                    <input type="text">
+                </div>
+
+                <div>
+                    <h2>Lastname : </h2>
+                    <input type="text">
+                </div>
+
+                <div>
+                    <h2>Address : </h2> 
+                    <input type="text">    
+                </div>
+                
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="glassmorphism">
+            <form>
+                <h1 name="topic">firestore</h1>
+                
+                <div>
+                    <h2>Name : </h2> 
+                    <input type="text">
+                </div>
+
+                <div>
+                    <h2>Lastname : </h2>
+                    <input type="text">
+                </div>
+
+                <input type="submit" value="Send">
+            </form>
         </div>
     </div>
     <script>
@@ -53,6 +81,7 @@
             document.getElementById("myDropdown").classList.toggle("show");
         }
     </script>
+
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -80,6 +109,7 @@
         // Initialize Firebase 
         firebase.initializeApp(firebaseConfig);
     </script>
+
     <script>
         let logOutButton = document.getElementById("LogOutButton");
         logOutButton.addEventListener('click', function () {
@@ -95,20 +125,10 @@
     </script>
 
     <script>
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                let user = firebase.auth().currentUser;
-                if (user) {
-                    console.log(user);
-                    console.log(user.displayName);
-                    console.log(user.email);
-                    console.log(user.photoURL);
-                    console.log(user.emailVerified);
-                }
-            }
-        })
+        fetch('http://localhost:8080/createInfo')
+        .then(response => response.json())
+        .then(data => console.log(data));
     </script>
-
 </body>
 
 </html>

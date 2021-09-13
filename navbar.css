@@ -1,6 +1,7 @@
 nav {
     background-color: rgba(255, 255, 255, 0.6);
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     top: 0;
     width: 100%;
     font-size: 18px;
@@ -40,3 +41,7 @@ nav a:hover, .dropdown a[name="V"]:hover, .dropdown-content a:hover {
 }
 
 .show {display: block;}
+
+#LogOutButton{
+    background-color: rgba(255, 64, 64, 0.6);
+}
